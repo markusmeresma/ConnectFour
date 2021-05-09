@@ -213,6 +213,44 @@ int check_board(char player)
         }
     }
 
+    // Right-tilted (Top-left to bottom-right) diagonal check - starting point game_board[0][0]
+    for(i = 0; i < ROWS-3; i++)
+    {
+        count = 0;
+        int row, col;
+        j = 0;
+        for(row = i, col = j; row < ROWS && col < COLS; row++, col++)
+        {
+            if(game_board[row][col] == player)
+            {
+                count++;
+                if(count == FOUR)
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+
+    // Right tilted (Top-left to bottom-right) diagonal check - starting point game_board[0][1]
+    for(i = 1; i < COLS-3; i++)
+    {
+        count = 0;
+        int row, col;
+        j = 0;
+        for(row = j, col = i; row < ROWS && col < COLS; row++, col++)
+        {
+            if(game_board[row][col] == player)
+            {
+                count++;
+                if(count == FOUR)
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+
 
     return 0;
 }
