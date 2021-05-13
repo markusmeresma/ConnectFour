@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define ROWS 6
 #define COLS 7
@@ -8,6 +9,8 @@ char game_board[ROWS][COLS];
 char header[] = "  1   2   3   4   5   6   7";
 char row[] = "+---+---+---+---+---+---+---+";
 int game_status = 1;
+char player_A = 'X';
+char player_B = 'O';
 
 void print_board();
 void init_game_board();
@@ -15,21 +18,31 @@ void insert(int pos, char disc);
 void add_disc(char player);
 void print_welcome_message();
 int check_board(char player);
+void play_connect_four();
+void play_again();
 
 int main(void)
 {
     system("clear");
 
-    char player_A = 'X';
-    char player_B = 'O';
-
-    // Start game
+    // Print welcome message
     print_welcome_message();
+
+    // Run game engine
+    play_connect_four();
+
+    // Check if user wants to play again
+    play_again();
+
+    return 0;
+}
+
+// Main game engine
+void play_connect_four()
+{
     init_game_board();
     print_board();
 
-    
-    // Game engine
     while(game_status)
     {
         add_disc(player_A);
@@ -53,11 +66,32 @@ int main(void)
             game_status = 0;
             break;
         }
-        
     }
-    
+}
 
-    return 0;
+// Helper method to check if user wants to play again
+void play_again()
+{
+    while(1)
+    {
+        // Check if user wants to play again
+        printf("\n\n");
+        char answer;
+
+        printf("Would you like to play another game? y/n\n");
+        scanf(" %c", &answer);
+
+        if(answer == 'y' || answer == 'Y')
+        {
+            game_status = 1;
+            play_connect_four();
+        }
+        else
+        {
+            printf("Bye!\n");
+            break;
+        }
+    }
 }
 
 // Method for initialising the game board
